@@ -2,7 +2,7 @@
 
 Rails app to populate a PostgreSQL database containing every shot attempted in the NBA since 1996.
 
-Blog post with some analysis of the data: http://toddwschneider.com/posts/nba-vs-ncaa-basketball-shooting-performance/
+Blog post with some analysis of the data: https://toddwschneider.com/posts/nba-vs-ncaa-basketball-shooting-performance/
 
 Data comes from the [NBA Stats API](https://stats.nba.com/). As of March 2018, the database contains ~4.5 million shots from 2,000 players, and takes up 1.5 GB disk space. Database also includes player/season aggregates segmented by shot distance and the distance of the closest defender at the time of the shot. Closest defender info is not available for individual shots, but the aggregates are available in the `closest_defender_aggregates` table.
 

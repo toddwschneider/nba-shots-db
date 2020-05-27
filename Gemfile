@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-ruby '2.5.3'
+ruby '2.5.8'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2'
 
 gem 'delayed_job_active_record', '~> 4.1'
 gem 'hashie', '~> 3.5'

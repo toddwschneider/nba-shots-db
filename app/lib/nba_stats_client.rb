@@ -141,7 +141,6 @@ class NbaStatsClient
 
   REQUEST_HEADERS = {
     accept: "application/json, text/plain, */*",
-    accept_encoding: "gzip, deflate, sdch",
     accept_language: "en-US,en;q=0.8",
     cache_control: "no-cache",
     connection: "keep-alive",

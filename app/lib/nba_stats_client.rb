@@ -53,7 +53,11 @@ class NbaStatsClient
     get(path: "shotchartdetail", params: params)
   end
 
-  def shot_stats_by_closest_defender(season:, shot_dist_range:, close_def_dist_range:, season_type: "Regular Season")
+  def shot_stats_by_closest_defender(season:, shot_dist_range: nil, close_def_dist_range:, season_type: "Regular Season")
+    if shot_dist_range.present?
+      raise "As of December 2020, it appears that the shot_dist_range filter is no longer supported by the NBA API"
+    end
+
     raise "invalid season" unless closest_defender_seasons.include?(season)
     raise "invalid season type" unless season_types.include?(season_type)
     raise "invalid defender range" unless closest_defender_ranges.include?(close_def_dist_range)

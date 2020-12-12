@@ -4,7 +4,7 @@ Rails app to populate a PostgreSQL database containing every shot attempted in t
 
 Blog post with some analysis of the data: https://toddwschneider.com/posts/nba-vs-ncaa-basketball-shooting-performance/
 
-Data comes from the [NBA Stats API](https://stats.nba.com/). As of March 2018, the database contains ~4.5 million shots from 2,000 players, and takes up 1.5 GB disk space. Database also includes player/season aggregates segmented by shot distance and the distance of the closest defender at the time of the shot. Closest defender info is not available for individual shots, but the aggregates are available in the `closest_defender_aggregates` table.
+Data comes from the [NBA Stats API](https://stats.nba.com/). As of March 2018, the database contains ~4.5 million shots from 2,000 players, and takes up 1.5 GB disk space.
 
 ## NCAA men's college basketball data
 
@@ -39,22 +39,16 @@ lebron.create_shots(season: "2017-18", season_type: "Regular Season")
 Delayed::Worker.new.work_off
 ```
 
-or
-
-```rb
-ClosestDefenderAggregate.create_by(
-  season: "2017-18",
-  season_type: "Regular Season",
-  shot_distance_range: "17-18",
-  closest_defender_range: "2-4 Feet - Tight"
-)
-Delayed::Worker.new.work_off
-```
-
 ## Notes
 
 - `player#create_shots` uses Postgres's `COPY` command instead of Rails's `#create` method because `COPY` is ~10x faster
 - Shots have no natural unique identifier: no external IDs, no guarantee that there's only 1 shot from 1 player at the same second of the same game, etc. Accordingly, `player#create_shots` deletes and replaces data every time it is run.
+
+## Closest defender aggregates [Deprecated]
+
+The original version of this project had a table called `closest_defender_aggregates` that included player/season aggregates segmented by shot distance and the distance of the closest defender at the time of the shot.
+
+Unfortunately, as of December 2020 (and perhaps earlier), it seems like the NBA API no longer makes this data available. The `NbaStatsClient#shot_stats_by_closest_defender` method currently only seems to work if the `shot_dist_range` argument is empty. This means you can get a player's shooting performance segmented by closest defender distance, but you cannot further segment by shot distance.
 
 ## See also
 
